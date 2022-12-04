@@ -40,6 +40,9 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // display functions
   function toggleDisplay() {
+    resetCountdownStyles();
+    pauseCountdown();
+
     if (elForm.classList.contains(hiddenClassName)) {
       elTimer.classList.add(hiddenClassName);
       elForm.classList.remove(hiddenClassName);
@@ -61,16 +64,20 @@ document.addEventListener('DOMContentLoaded', function() {
     return (minutes * 60) + seconds;
   }
 
+  function resetCountdownStyles() {
+    elCountdown.style.background = black;
+  }
+
   // form functions
   function editTimer(evt) {
+    evt.preventDefault();
+
     const elMinutesInput = document.querySelector('input[name="minutes"]');
     const elSecondsInput = document.querySelector('input[name="seconds"]');
     const elMinutesValue = elMinutesInput.value;
     const elSecondsValue = elSecondsInput.value;
     let userMinutes = defaultMinutes;
     let userSeconds = defaultSeconds;
-
-    evt.preventDefault();
     
     if (elMinutesValue && elSecondsValue) {
       userMinutes = parseInt(elMinutesValue, 10);
@@ -110,7 +117,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function startCountdown() {
-    elCountdown.style.background = black;
     elStop.classList.remove(hiddenClassName);
     elStart.classList.add(hiddenClassName);
     elNotification.classList.add(hiddenClassName);
