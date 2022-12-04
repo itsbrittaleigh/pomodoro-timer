@@ -7,15 +7,19 @@ document.addEventListener('DOMContentLoaded', function() {
   const elEdit = document.querySelector('#edit');
   const elMinutes = document.querySelector('#minutes');
   const elSeconds = document.querySelector('#seconds');
+  const elCountdown = document.querySelector('#countdown-outer');
   
   // defaults
   const defaultMinutes = 15;
   const defaultSeconds = 0;
+  const interval = 1000; // one second
+  const hiddenClassName = 'hidden';
 
   // mutable settings
   let minutes = defaultMinutes;
   let seconds = defaultSeconds;
   let totalSeconds = calculateTotalSeconds(minutes, seconds);
+  let totalSecondsRemaining = totalSeconds;
   let countdownInterval;
 
   elMinutes.innerText = minutes;
@@ -29,12 +33,12 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // display functions
   function toggleDisplay() {
-    if (elForm.classList.contains('hidden')) {
-      elTimer.classList.add('hidden');
-      elForm.classList.remove('hidden');
+    if (elForm.classList.contains(hiddenClassName)) {
+      elTimer.classList.add(hiddenClassName);
+      elForm.classList.remove(hiddenClassName);
     } else {
-      elTimer.classList.remove('hidden');
-      elForm.classList.add('hidden');
+      elTimer.classList.remove(hiddenClassName);
+      elForm.classList.add(hiddenClassName);
     }
   }
 
@@ -67,37 +71,42 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     minutes = userMinutes;
-      seconds = userSeconds;
-      totalSeconds = calculateTotalSeconds(userMinutes, userSeconds);
-      elMinutes.innerText = userMinutes;
-      elSeconds.innerText = formatSeconds(userSeconds);
+    seconds = userSeconds;
+    totalSeconds = calculateTotalSeconds(userMinutes, userSeconds);
+    totalSecondsRemaining = totalSeconds;
+    elMinutes.innerText = userMinutes;
+    elSeconds.innerText = formatSeconds(userSeconds);
 
-      toggleDisplay();
+    toggleDisplay();
   }
 
   // timer functions
   function countDown() {
-    totalSeconds -= 1;
+    totalSecondsRemaining -= 1;
 
-    if (totalSeconds > 0) {
-      const newMinutes = Math.floor(totalSeconds / 60);
-      const newSeconds = totalSeconds % 60;
+    if (totalSecondsRemaining > 0) {
+      const newMinutes = Math.floor(totalSecondsRemaining / 60);
+      const newSeconds = totalSecondsRemaining % 60;
+      const totalSecondsPassed = totalSeconds - totalSecondsRemaining;
+      const degreesFilledPerSecond = 360 / totalSeconds;
+      const degreesFilled = totalSecondsPassed * degreesFilledPerSecond;
       elMinutes.innerText = newMinutes;
       elSeconds.innerText = formatSeconds(newSeconds);
+      elCountdown.style.background = `conic-gradient(#910A0A ${degreesFilled}deg, #000000 ${degreesFilled}deg)`;
     } else {
       pauseCountdown();
     }
   }
 
   function startCountdown() {
-    elStop.classList.remove('hidden');
-    elStart.classList.add('hidden');
-    countdownInterval = setInterval(countDown, 1000);
+    elStop.classList.remove(hiddenClassName);
+    elStart.classList.add(hiddenClassName);
+    countdownInterval = setInterval(countDown, interval);
   }
 
   function pauseCountdown() {
-    elStop.classList.add('hidden');
-    elStart.classList.remove('hidden');
+    elStop.classList.add(hiddenClassName);
+    elStart.classList.remove(hiddenClassName);
     clearInterval(countdownInterval);
   }
 });

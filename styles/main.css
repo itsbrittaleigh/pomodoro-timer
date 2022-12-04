@@ -1,13 +1,13 @@
 :root {
   /* colors */
-  --color-black: #2B2A30;
+  --color-black: #000000;
+  --color-dark-gray: #2B2A30;
   --color-white: #FFFFFF;
   --color-red: #900A0A;
   --color-green: #09A65A;
 
   /* gradients */
-  --gradient-red: radial-gradient(43.34% 55.31% at 93.34% 44.69%, #000000 0%, #910A0A 100%);
-  --gradient-green: radial-gradient(71.4% 71.4% at 51.7% 28.6%, #3A393F 0%, #17171A 100%);
+  --gradient-black: radial-gradient(71.4% 71.4% at 51.7% 28.6%, #3A393F 0%, #17171A 100%);
 
   /* shadows */
   --shadow-text: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -19,6 +19,12 @@
   src: url('../fonts/bebasneue-book-webfont.woff');
 }
 
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
 body,
 input,
 button {
@@ -27,7 +33,7 @@ button {
 }
 
 body {
-  background-color: var(--color-black);
+  background-color: var(--color-dark-gray);
   font-size: 16px;
   height: 100vh;
   margin: 0;
@@ -44,9 +50,31 @@ body {
 }
 
 .timer__countdown {
+  align-items: center;
+  background: var(--gradient-black);
+  border-radius: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 98vw;
   margin: 0 auto;
+  max-height: 518px;
   max-width: 518px;
-  width: 98%;
+  padding-top: 130px;
+  position: relative;
+  width: 96vw;
+}
+
+.timer__countdown--outer {
+  background-color: var(--color-black);
+  border-radius: 100%;
+  height: calc(96vw + 18px);
+  left: -9px;
+  max-height: 536px;
+  max-width: 536px;
+  position: absolute;
+  top: -9px;
+  width: calc(96vw + 18px);
+  z-index: -1;
 }
 
 .timer__numbers,
@@ -61,11 +89,11 @@ body {
 .form__number-input {
   appearance: none;
   background-color: transparent;
-  border-bottom: 1px dashed var(--color-white);
   border: none;
+  border-bottom: 1px dashed var(--color-white);
   font-size: 12.25rem;
-  margin-bottom: 74px;
-  width: 45%;
+  margin-bottom: 60px;
+  width: 42%;
 }
 
 .form__number-input[name="minutes"] {
