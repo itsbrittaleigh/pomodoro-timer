@@ -8,6 +8,13 @@ document.addEventListener('DOMContentLoaded', function() {
   const elMinutes = document.querySelector('#minutes');
   const elSeconds = document.querySelector('#seconds');
   const elCountdown = document.querySelector('#countdown-outer');
+  const elAudio = document.querySelector('#chime');
+  const elNotification = document.querySelector('#notification');
+
+  // colors
+  const green = getComputedStyle(document.documentElement).getPropertyValue('--color-green');
+  const red = getComputedStyle(document.documentElement).getPropertyValue('--color-red');
+  const black = getComputedStyle(document.documentElement).getPropertyValue('--color-black');
   
   // defaults
   const defaultMinutes = 15;
@@ -83,24 +90,30 @@ document.addEventListener('DOMContentLoaded', function() {
   // timer functions
   function countDown() {
     totalSecondsRemaining -= 1;
+    const newMinutes = Math.floor(totalSecondsRemaining / 60);
+    const newSeconds = totalSecondsRemaining % 60;
 
     if (totalSecondsRemaining > 0) {
-      const newMinutes = Math.floor(totalSecondsRemaining / 60);
-      const newSeconds = totalSecondsRemaining % 60;
       const totalSecondsPassed = totalSeconds - totalSecondsRemaining;
       const degreesFilledPerSecond = 360 / totalSeconds;
       const degreesFilled = totalSecondsPassed * degreesFilledPerSecond;
-      elMinutes.innerText = newMinutes;
-      elSeconds.innerText = formatSeconds(newSeconds);
-      elCountdown.style.background = `conic-gradient(#910A0A ${degreesFilled}deg, #000000 ${degreesFilled}deg)`;
+      elCountdown.style.background = `conic-gradient(${red} ${degreesFilled}deg, #000000 ${degreesFilled}deg)`;
     } else {
       pauseCountdown();
+      elCountdown.style.background = green;
+      elAudio.play();
+      elNotification.classList.remove(hiddenClassName);
     }
+
+    elMinutes.innerText = newMinutes;
+    elSeconds.innerText = formatSeconds(newSeconds);
   }
 
   function startCountdown() {
+    elCountdown.style.background = black;
     elStop.classList.remove(hiddenClassName);
     elStart.classList.add(hiddenClassName);
+    elNotification.classList.add(hiddenClassName);
     countdownInterval = setInterval(countDown, interval);
   }
 

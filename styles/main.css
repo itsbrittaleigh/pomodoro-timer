@@ -40,6 +40,11 @@ body {
   width: 100vw;
 }
 
+img {
+  max-width: 100%;
+}
+
+/* timer */
 .timer,
 .form {
   align-items: center;
@@ -65,7 +70,7 @@ body {
 }
 
 .timer__countdown--outer {
-  background-color: var(--color-black);
+  background: var(--color-black);
   border-radius: 100%;
   height: calc(96vw + 18px);
   left: -9px;
@@ -125,6 +130,23 @@ body {
 .timer__button--edit,
 .form__button--save {
   padding: 0;
+}
+
+/* notification */
+.notification {
+  position: fixed;
+  background-color: var(--color-white);
+  top: 1rem;
+  right: 1rem;
+  border-radius: 4px;
+  padding: 0.5rem;
+  display: flex;
+}
+
+.notification__text {
+  color: var(--color-dark-gray);
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 /* utilities */
