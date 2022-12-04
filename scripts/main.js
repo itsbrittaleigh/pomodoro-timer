@@ -9,8 +9,12 @@ document.addEventListener('DOMContentLoaded', function() {
   const elSeconds = document.querySelector('#seconds');
   
   // defaults
-  let minutes = 15;
-  let seconds = 0;
+  const defaultMinutes = 15;
+  const defaultSeconds = 0;
+
+  // mutable settings
+  let minutes = defaultMinutes;
+  let seconds = defaultSeconds;
   let totalSeconds = calculateTotalSeconds(minutes, seconds);
   let countdownInterval;
 
@@ -50,27 +54,39 @@ document.addEventListener('DOMContentLoaded', function() {
   function editTimer(evt) {
     const elMinutesInput = document.querySelector('input[name="minutes"]');
     const elSecondsInput = document.querySelector('input[name="seconds"]');
+    const elMinutesValue = elMinutesInput.value;
+    const elSecondsValue = elSecondsInput.value;
+    let userMinutes = defaultMinutes;
+    let userSeconds = defaultSeconds;
 
     evt.preventDefault();
     
-    const userMinutes = parseInt(elMinutesInput.value, 10);
-    const userSeconds = parseInt(elSecondsInput.value, 10);
-    minutes = userMinutes;
-    seconds = userSeconds;
-    totalSeconds = calculateTotalSeconds(userMinutes, userSeconds);
-    elMinutes.innerText = userMinutes;
-    elSeconds.innerText = formatSeconds(userSeconds);
+    if (elMinutesValue && elSecondsValue) {
+      userMinutes = parseInt(elMinutesValue, 10);
+      userSeconds = parseInt(elSecondsValue, 10);
+    }
 
-    toggleDisplay();
+    minutes = userMinutes;
+      seconds = userSeconds;
+      totalSeconds = calculateTotalSeconds(userMinutes, userSeconds);
+      elMinutes.innerText = userMinutes;
+      elSeconds.innerText = formatSeconds(userSeconds);
+
+      toggleDisplay();
   }
 
   // timer functions
   function countDown() {
     totalSeconds -= 1;
-    const newMinutes = Math.floor(totalSeconds / 60);
-    const newSeconds = totalSeconds % 60;
-    elMinutes.innerText = newMinutes;
-    elSeconds.innerText = newSeconds;
+
+    if (totalSeconds > 0) {
+      const newMinutes = Math.floor(totalSeconds / 60);
+      const newSeconds = totalSeconds % 60;
+      elMinutes.innerText = newMinutes;
+      elSeconds.innerText = formatSeconds(newSeconds);
+    } else {
+      pauseCountdown();
+    }
   }
 
   function startCountdown() {
