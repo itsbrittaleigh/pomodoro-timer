@@ -1,0 +1,20 @@
+:root {
+  /* colors */
+  --color-black: #2B2A30;
+  --color-red: #900A0A;
+  --color-green: #09A65A;
+  --color-white: #FFFFFF;
+
+  /* gradients */
+  --gradient-red: radial-gradient(43.34% 55.31% at 93.34% 44.69%, #000000 0%, #910A0A 100%);
+  --gradient-green: radial-gradient(71.4% 71.4% at 51.7% 28.6%, #3A393F 0%, #17171A 100%);
+
+  /* shadows */
+  --shadow-text: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  --shadow-box: inset 0px 0px 114px rgba(0, 0, 0, 0.45);
+}
+
+.hidden {
+  display: none;
+  visibility: hidden;
+}
