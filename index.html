@@ -9,27 +9,32 @@
   <script src="scripts/main.js"></script>
 </head>
 <body>
-  <section id="timer">
-    <div id="countdown">
-      <p>
-        <span id="minutes">15</span>
-        <span>:</span>
-        <span id="seconds">00</span>
+  <section id="timer" class="timer">
+    <div id="countdown" class="timer__countdown">
+      <p class="timer__numbers">
+        <span id="minutes">15</span>:<span id="seconds">00</span>
       </p>
-      <button id="start">Start</button>
-      <button id="stop" class="hidden">Stop</button>
-      <button aria-label="Edit time" id="edit" type="button">
-        <img alt="gear icon" src="images/gear.svg" />
-      </button>
+      <div class="timer__button-container">
+        <button class="timer__button" id="start">Start</button>
+        <button id="stop" class="timer__button hidden">Stop</button>
+        <button aria-label="Edit time" id="edit" type="button" class="timer__button timer__button--edit">
+          <img alt="gear icon" src="images/gear.svg" />
+        </button>
+      </div>
     </div>
   </section>
-  <section id="form" class="hidden">
-    <form>
-      <input aria-label="Minutes" name="minutes" type="number" />
-      <input aria-label="Seconds" name="seconds" type="number" />
-      <button aria-label="Set time" type="submit">
-        <img alt="check mark icon" src="images/check.svg" />
-      </button>
+  <section id="form" class="form hidden">
+    <form class="timer__countdown">
+      <div class="form__numbers">
+        <input aria-label="Minutes" class="form__number-input" name="minutes" type="number" />
+        <p class="form__numbers">:</p>
+        <input aria-label="Seconds" class="form__number-input" name="seconds" type="number" />
+      </div>
+      <div class="form__button-container">
+        <button aria-label="Set time" class="form__button form__button--save" type="submit">
+          <img alt="check mark icon" src="images/check.svg" />
+        </button>
+      </div>
     </form>
   </section>
 </body>

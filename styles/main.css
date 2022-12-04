@@ -1,9 +1,9 @@
 :root {
   /* colors */
   --color-black: #2B2A30;
+  --color-white: #FFFFFF;
   --color-red: #900A0A;
   --color-green: #09A65A;
-  --color-white: #FFFFFF;
 
   /* gradients */
   --gradient-red: radial-gradient(43.34% 55.31% at 93.34% 44.69%, #000000 0%, #910A0A 100%);
@@ -14,7 +14,104 @@
   --shadow-box: inset 0px 0px 114px rgba(0, 0, 0, 0.45);
 }
 
+@font-face {
+  font-family: 'Bebasneue Book';
+  src: url('../fonts/bebasneue-book-webfont.woff');
+}
+
+body,
+input,
+button {
+  color: var(--color-white);
+  font-family: 'Bebasneue Book', Arial, sans-serif;
+}
+
+body {
+  background-color: var(--color-black);
+  font-size: 16px;
+  height: 100vh;
+  margin: 0;
+  width: 100vw;
+}
+
+.timer,
+.form {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+}
+
+.timer__countdown {
+  margin: 0 auto;
+  max-width: 518px;
+  width: 98%;
+}
+
+.timer__numbers,
+.form__numbers {
+  display: flex;
+  font-size: 12.25rem;
+  justify-content: center;
+  margin: 0;
+  text-shadow: var(--shadow-text);
+}
+
+.form__number-input {
+  appearance: none;
+  background-color: transparent;
+  border-bottom: 1px dashed var(--color-white);
+  border: none;
+  font-size: 12.25rem;
+  margin-bottom: 74px;
+  width: 45%;
+}
+
+.form__number-input[name="minutes"] {
+  text-align: right;
+}
+
+.form__number-input[name="seconds"] {
+  text-align: left;
+}
+
+.timer__button-container,
+.form__button-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.timer__button,
+.form__button {
+  background-color: transparent;
+  border: none;
+  font-weight: 700;
+  letter-spacing: 0.6rem;
+  padding: 23px 0;
+  text-align: center;
+  text-shadow: var(--shadow-text);
+  text-transform: uppercase;
+}
+
+.timer__button--edit,
+.form__button--save {
+  padding: 0;
+}
+
+/* utilities */
 .hidden {
   display: none;
   visibility: hidden;
+}
+
+/* browser overrides */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
 }
